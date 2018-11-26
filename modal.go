@@ -9,6 +9,9 @@ import (
 )
 
 type Modal struct {
+	Frame bool
+	Title string
+
 	*gocui.Gui
 	name         string
 	textArea     *textArea
@@ -38,6 +41,8 @@ func NewModal(gui *gocui.Gui, x, y, w int) *Modal {
 	return &Modal{
 		Gui:          gui,
 		name:         "modal",
+		Frame:        false,
+		Title:        "Please Answer",
 		activeButton: 0,
 		Attributes: &Attributes{
 			textColor:   gocui.ColorWhite,
@@ -123,7 +128,8 @@ func (m *Modal) Draw() {
 			panic(err)
 		}
 
-		v.Frame = false
+		v.Frame = m.Frame
+		v.Title = m.Title
 		v.FgColor = m.textColor
 		v.BgColor = m.textBgColor
 	}

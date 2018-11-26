@@ -20,9 +20,11 @@ func main() {
 	maxX, maxY := gui.Size()
 	x, y, w := maxX/3, maxY/3, maxX/3*2
 
-	modal := component.NewModal(gui, x, y, w).
-		SetText("Do you want MacBook Pro?")
-
+	modal := component.NewModal(gui, x, y, w)
+	modal.SetText("Do you want MacBook Pro?")
+	// optional parameter:
+	// modal.Frame = true
+	// modal.Title = "Question"
 	modal.AddButton("No", gocui.KeyEnter, quit)
 	modal.AddButton("Yes", gocui.KeyEnter, quit)
 
