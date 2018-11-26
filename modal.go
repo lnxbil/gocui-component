@@ -174,7 +174,7 @@ func (m *Modal) Close() {
 	}
 }
 
-// nextButton focus netxt button
+// nextButton focus next button
 func (m *Modal) nextButton(g *gocui.Gui, v *gocui.View) error {
 	m.buttons[m.activeButton].UnFocus()
 	m.activeButton = (m.activeButton + 1) % len(m.buttons)
