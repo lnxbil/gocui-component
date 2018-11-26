@@ -100,6 +100,8 @@ func (m *Modal) AddButton(label string, key Key, handler Handler) *Button {
 
 	button := NewButton(m.Gui, label, x, y, len(label)).
 		AddHandler(gocui.KeyTab, m.nextButton).
+		AddHandler(gocui.KeyArrowRight, m.nextButton).
+		AddHandler(gocui.KeyArrowLeft, m.previousButton).
 		AddHandler(key, handler).
 		SetTextColor(gocui.ColorWhite, gocui.ColorBlack).
 		SetHilightColor(gocui.ColorBlack, gocui.ColorWhite)
@@ -178,6 +180,14 @@ func (m *Modal) Close() {
 func (m *Modal) nextButton(g *gocui.Gui, v *gocui.View) error {
 	m.buttons[m.activeButton].UnFocus()
 	m.activeButton = (m.activeButton + 1) % len(m.buttons)
+	m.buttons[m.activeButton].Focus()
+	return nil
+}
+
+// previousButton focus netxt button
+func (m *Modal) previousButton(g *gocui.Gui, v *gocui.View) error {
+	m.buttons[m.activeButton].UnFocus()
+	m.activeButton = ((m.activeButton - 1) + len(m.buttons)) % len(m.buttons)
 	m.buttons[m.activeButton].Focus()
 	return nil
 }
